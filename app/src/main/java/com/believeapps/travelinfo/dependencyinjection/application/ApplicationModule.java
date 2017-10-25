@@ -1,6 +1,9 @@
 package com.believeapps.travelinfo.dependencyinjection.application;
 
 import android.app.Application;
+import android.arch.lifecycle.ViewModelProvider;
+
+import com.believeapps.travelinfo.viewmodelfactory.ViewModelFactory;
 
 import javax.inject.Singleton;
 
@@ -20,6 +23,12 @@ public class ApplicationModule {
     @Singleton
     Application application(){
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    ViewModelProvider.Factory provideViewModelFactory(ViewModelFactory factory) {
+        return factory;
     }
 
 

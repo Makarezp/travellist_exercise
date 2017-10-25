@@ -32,7 +32,7 @@ public class ApiModule {
 
     @Singleton
     @Provides
-    TravelRepublicApi provideTravleRepublicApi(OkHttpClient okHttpClient) {
+    TravelRepublicApi provideTravelRepublicApi(OkHttpClient okHttpClient) {
         return new Retrofit
                 .Builder()
                 .baseUrl(BASE_URL)
@@ -44,9 +44,11 @@ public class ApiModule {
     }
 
 
-
-
-
+    @Singleton
+    @Provides
+    Repository provideRepository(TravelRepublicApi api) {
+        return new RepositoryImplementation(api);
+    }
 
 
 }

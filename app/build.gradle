@@ -23,6 +23,7 @@ ext {
 
     daggerVersion = '2.11'
     okhttpVersion = '3.9.0'
+    lifecycleVersion = "1.0.0-alpha9-1"
 }
 
 dependencies {
@@ -56,6 +57,11 @@ dependencies {
 
     //gson
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+
+    // Lifecycle
+    compile "android.arch.lifecycle:runtime:${lifecycleVersion}"
+    compile "android.arch.lifecycle:extensions:${lifecycleVersion}"
+    annotationProcessor "android.arch.lifecycle:compiler:${lifecycleVersion}"
 
 
 
