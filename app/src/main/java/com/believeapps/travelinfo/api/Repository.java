@@ -1,13 +1,16 @@
 package com.believeapps.travelinfo.api;
 
-import com.believeapps.travelinfo.api.model.Aggregates;
-import com.believeapps.travelinfo.api.model.AggregatesContainter;
+
+import com.believeapps.travelinfo.api.model.Hotels;
+import com.believeapps.travelinfo.api.model.HotelsByChildDestination;
 import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
+
+import java.util.List;
 
 import io.reactivex.Single;
 
 public interface Repository {
 
-     Single<AggregatesContainter> getHotelsByChildDestination(HotelsByChildDestinationQuery query);
+     Single<List<Hotels>> getHotelsByChildDestination(HotelsByChildDestinationQuery query);
 
 }

@@ -1,5 +1,8 @@
 package com.believeapps.travelinfo.api;
 
+import com.believeapps.travelinfo.api.model.Hotels;
+import com.believeapps.travelinfo.api.model.HotelsByChildDestination;
+import com.believeapps.travelinfo.api.model.HotelsCustomDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -38,6 +41,7 @@ public class ApiModule {
     TravelRepublicApi provideTravelRepublicApi(OkHttpClient okHttpClient) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .registerTypeAdapter(HotelsByChildDestination.class, new HotelsCustomDeserializer())
                 .create();
 
         return new Retrofit

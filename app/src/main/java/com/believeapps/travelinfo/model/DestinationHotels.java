@@ -18,6 +18,9 @@ public class Hotels {
     @Expose
     private Integer position;
 
+    private String imageId;
+    private String imageType;
+
     public String getTitle() {
         return title;
     }
@@ -50,6 +53,22 @@ public class Hotels {
         this.position = position;
     }
 
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
     @Override
     public String toString() {
         return "Hotels{" +
@@ -57,6 +76,8 @@ public class Hotels {
                 ", count=" + count +
                 ", minPrice=" + minPrice +
                 ", position=" + position +
+                ", imageId=" + imageId +
+                ", imageType=" + imageType +
                 '}';
     }
 }
