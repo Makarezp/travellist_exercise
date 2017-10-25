@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.believeapps.travelinfo.api.Repository;
-import com.believeapps.travelinfo.api.model.DatesAndDuration;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
+import com.believeapps.travelinfo.api.queryobjects.DatesAndDuration;
+import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -50,7 +50,7 @@ public class TravelListViewModel extends ViewModel {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND,0);
         c.set(Calendar.MILLISECOND,0);
-        c.add(Calendar.MONTH, 4);
+        c.add(Calendar.MONTH, 5);
         return c.getTime();
     }
 

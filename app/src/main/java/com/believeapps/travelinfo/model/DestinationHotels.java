@@ -1,9 +1,9 @@
-package com.believeapps.travelinfo.api.model;
+package com.believeapps.travelinfo.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Hotels {
+public class DestinationHotels {
 
     @SerializedName("Title")
     @Expose
@@ -71,7 +71,7 @@ public class Hotels {
 
     @Override
     public String toString() {
-        return "Hotels{" +
+        return "DestinationHotels{" +
                 "title='" + title + '\'' +
                 ", count=" + count +
                 ", minPrice=" + minPrice +

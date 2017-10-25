@@ -1,11 +1,8 @@
 package com.believeapps.travelinfo.api;
 
 
-import com.believeapps.travelinfo.api.model.Hotels;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestination;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
-
-import java.util.List;
+import com.believeapps.travelinfo.api.wrappers.HotelsByChildDestination;
+import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;

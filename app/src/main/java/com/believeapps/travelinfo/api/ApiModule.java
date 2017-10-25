@@ -1,8 +1,6 @@
 package com.believeapps.travelinfo.api;
 
-import com.believeapps.travelinfo.api.model.Hotels;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestination;
-import com.believeapps.travelinfo.api.model.HotelsCustomDeserializer;
+import com.believeapps.travelinfo.api.wrappers.HotelsByChildDestination;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -1,9 +1,9 @@
 package com.believeapps.travelinfo.api;
 
 
-import com.believeapps.travelinfo.api.model.Hotels;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestination;
-import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
+import com.believeapps.travelinfo.api.wrappers.HotelsByChildDestination;
+import com.believeapps.travelinfo.model.DestinationHotels;
+import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class RepositoryImplementation implements Repository {
     }
 
     @Override
-    public Single<List<Hotels>> getHotelsByChildDestination(HotelsByChildDestinationQuery query) {
+    public Single<List<DestinationHotels>> getHotelsByChildDestination(HotelsByChildDestinationQuery query) {
         return mApi.getHotelsByChildeDestination("Aggregates.HotelsByChildDestination", query)
-                .map(HotelsByChildDestination::getHotelsList);
+                .map(HotelsByChildDestination::getDestinationHotelsList);
     }
 }
