@@ -1,4 +1,4 @@
-package com.believeapps.travelinfo.dependencyinjection.travellistscope;
+package com.believeapps.travelinfo.screens.travellist;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

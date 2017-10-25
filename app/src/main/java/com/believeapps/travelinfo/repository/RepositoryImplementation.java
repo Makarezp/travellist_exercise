@@ -1,6 +1,7 @@
-package com.believeapps.travelinfo.api;
+package com.believeapps.travelinfo.repository;
 
 
+import com.believeapps.travelinfo.api.TravelRepublicApi;
 import com.believeapps.travelinfo.api.wrappers.HotelsByChildDestination;
 import com.believeapps.travelinfo.model.DestinationHotels;
 import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;

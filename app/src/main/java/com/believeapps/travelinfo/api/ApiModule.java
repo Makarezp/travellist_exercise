@@ -1,5 +1,7 @@
 package com.believeapps.travelinfo.api;
 
+import com.believeapps.travelinfo.repository.Repository;
+import com.believeapps.travelinfo.repository.RepositoryImplementation;
 import com.believeapps.travelinfo.api.wrappers.HotelsByChildDestination;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,11 +55,7 @@ public class ApiModule {
     }
 
 
-    @Singleton
-    @Provides
-    Repository provideRepository(TravelRepublicApi api) {
-        return new RepositoryImplementation(api);
-    }
+
 
 
 }

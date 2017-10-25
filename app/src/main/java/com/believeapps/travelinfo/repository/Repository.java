@@ -1,4 +1,4 @@
-package com.believeapps.travelinfo.api;
+package com.believeapps.travelinfo.repository;
 
 
 import com.believeapps.travelinfo.model.DestinationHotels;

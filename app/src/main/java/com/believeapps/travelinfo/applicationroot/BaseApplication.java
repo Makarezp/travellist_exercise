@@ -1,10 +1,9 @@
-package com.believeapps.travelinfo;
+package com.believeapps.travelinfo.applicationroot;
 
 import android.app.Application;
 
-import com.believeapps.travelinfo.dependencyinjection.application.ApplicationComponent;
-import com.believeapps.travelinfo.dependencyinjection.application.ApplicationModule;
-import com.believeapps.travelinfo.dependencyinjection.application.DaggerApplicationComponent;
+
+
 
 public class BaseApplication extends Application {
 

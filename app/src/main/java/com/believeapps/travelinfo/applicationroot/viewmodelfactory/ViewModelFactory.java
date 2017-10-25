@@ -1,4 +1,4 @@
-package com.believeapps.travelinfo.viewmodelfactory;
+package com.believeapps.travelinfo.applicationroot.viewmodelfactory;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

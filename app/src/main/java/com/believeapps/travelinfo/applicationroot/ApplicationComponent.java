@@ -1,7 +1,7 @@
-package com.believeapps.travelinfo.dependencyinjection.application;
+package com.believeapps.travelinfo.applicationroot;
 
-import com.believeapps.travelinfo.BaseApplication;
 import com.believeapps.travelinfo.api.ApiModule;
+import com.believeapps.travelinfo.repository.RepositoryModule;
 import com.believeapps.travelinfo.screens.travellist.TravelListComponent;
 import com.believeapps.travelinfo.screens.travellist.TravelListModule;
 
@@ -13,7 +13,8 @@ import dagger.Component;
 @Component(
         modules = {
                 ApplicationModule.class,
-                ApiModule.class
+                ApiModule.class,
+                RepositoryModule.class
         }
 )
 public interface ApplicationComponent {

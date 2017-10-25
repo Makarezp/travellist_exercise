@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.believeapps.travelinfo.BaseApplication;
+import com.believeapps.travelinfo.applicationroot.BaseApplication;
 import com.believeapps.travelinfo.R;
 
 import javax.inject.Inject;

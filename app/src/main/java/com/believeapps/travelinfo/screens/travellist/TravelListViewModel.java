@@ -3,7 +3,7 @@ package com.believeapps.travelinfo.screens.travellist;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.believeapps.travelinfo.api.Repository;
+import com.believeapps.travelinfo.repository.Repository;
 import com.believeapps.travelinfo.api.queryobjects.DatesAndDuration;
 import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
