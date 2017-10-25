@@ -1,5 +1,8 @@
 package com.believeapps.travelinfo.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -33,10 +36,14 @@ public class ApiModule {
     @Singleton
     @Provides
     TravelRepublicApi provideTravelRepublicApi(OkHttpClient okHttpClient) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
         return new Retrofit
                 .Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build()
