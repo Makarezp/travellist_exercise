@@ -59,6 +59,5 @@ public class TravelListFrag extends Fragment {
                 .inject(this);
         mTravelListViewModel = ViewModelProviders.of(this, mFactory).get(TravelListViewModel.class);
         mTravelListViewModel.getHotels();
-
     }
 }

@@ -3,17 +3,22 @@ package com.believeapps.travelinfo.screens.travellist;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+import com.believeapps.travelinfo.model.DestinationHotels;
 import com.believeapps.travelinfo.repository.Repository;
 import com.believeapps.travelinfo.api.queryobjects.DatesAndDuration;
 import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -34,13 +39,16 @@ public class TravelListViewModel extends ViewModel {
     public void getHotels() {
 
 
-        repository.getHotelsByChildDestination(buildQuery())
+        compositeDisposable.add(repository.getHotelsByChildDestination(buildQuery())
+                .flatMap(list -> Observable.fromIterable(list)
+                        .toSortedList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object.toString()),
                         err -> Log.d(this.getClass().getSimpleName(), "getHotels: " + err)
-                );
+                )
+        );
     }
 
     private Date getDateForQuery() {
@@ -70,4 +78,13 @@ public class TravelListViewModel extends ViewModel {
                 .datesAndDurations(Collections.singletonList(new DatesAndDuration(getDateForQuery(), 7)))
                 .build();
     }
+
+
+    @Override
+    protected void onCleared() {
+        if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
+            compositeDisposable.clear();
+        }
+    }
+
 }

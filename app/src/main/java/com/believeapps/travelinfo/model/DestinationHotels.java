@@ -1,9 +1,11 @@
 package com.believeapps.travelinfo.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DestinationHotels {
+public class DestinationHotels implements Comparable<DestinationHotels> {
 
     @SerializedName("Title")
     @Expose
@@ -67,6 +69,11 @@ public class DestinationHotels {
 
     public void setImageType(String imageType) {
         this.imageType = imageType;
+    }
+
+    @Override
+    public int compareTo(@NonNull DestinationHotels o) {
+        return Integer.compare(getPosition(), o.getPosition());
     }
 
     @Override
