@@ -7,7 +7,6 @@ import com.believeapps.travelinfo.api.Repository;
 import com.believeapps.travelinfo.api.model.DatesAndDuration;
 import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -39,7 +38,7 @@ public class TravelListViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object),
+                        object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object.toString()),
                         err -> Log.d(this.getClass().getSimpleName(), "getHotels: " + err)
                 );
     }

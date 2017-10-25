@@ -1,5 +1,7 @@
 package com.believeapps.travelinfo.api;
 
+import com.believeapps.travelinfo.api.model.Aggregates;
+import com.believeapps.travelinfo.api.model.AggregatesContainter;
 import com.believeapps.travelinfo.api.model.HotelsByChildDestinationQuery;
 
 import javax.inject.Inject;
@@ -16,7 +18,7 @@ public class RepositoryImplementation implements Repository {
     }
 
     @Override
-    public Single<Object> getHotelsByChildDestination(HotelsByChildDestinationQuery query) {
+    public Single<AggregatesContainter> getHotelsByChildDestination(HotelsByChildDestinationQuery query) {
         return mApi.getHotelsByChildeDestination("Aggregates.HotelsByChildDestination", query);
     }
 }
