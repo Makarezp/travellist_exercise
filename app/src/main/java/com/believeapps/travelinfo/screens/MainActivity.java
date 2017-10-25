@@ -1,5 +1,6 @@
 package com.believeapps.travelinfo.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.believeapps.travelinfo.R;
-import com.believeapps.travelinfo.screens.settings.SettingsFrag;
+import com.believeapps.travelinfo.screens.settings.SettingsActivity;
 import com.believeapps.travelinfo.screens.travellist.TravelListFrag;
 
 import butterknife.BindView;
@@ -86,27 +87,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -116,16 +96,18 @@ public class MainActivity extends AppCompatActivity
             navItemIndex = 0;
             CURRENT_TAG = TAG_SETTINGS;
         } else if (id == R.id.settings) {
-            navItemIndex = 1;
-            CURRENT_TAG = TAG_SETTINGS;
+            startActivity(new Intent(this, SettingsActivity.class));
         }
 
+        item.setChecked(true);
         loadFragment();
         return true;
     }
 
 
     private void loadFragment() {
+
+        selectNavMenu();
 
         Runnable mPenndingRunnable = new Runnable() {
             @Override
@@ -148,11 +130,12 @@ public class MainActivity extends AppCompatActivity
         switch (currNavItemIndex) {
             case 0:
                 return TravelListFrag.newInstance();
-            case 1:
-                return SettingsFrag.newInstance();
             default:
                 throw new IllegalArgumentException("There is no fragment with index" + currNavItemIndex);
         }
+    }
 
+    private void selectNavMenu() {
+        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
     }
 }
