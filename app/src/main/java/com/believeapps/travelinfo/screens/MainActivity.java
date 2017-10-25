@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.believeapps.travelinfo.R;
+import com.believeapps.travelinfo.screens.settings.SettingsFrag;
+import com.believeapps.travelinfo.screens.travellist.TravelListFrag;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,10 +37,17 @@ public class MainActivity extends AppCompatActivity
 
     private Handler mHandler;
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,14 +60,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mHandler = new Handler();
+
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_TRAVEL_LIST;
+            loadFragment();
+        }
     }
 
     @Override
@@ -91,17 +110,49 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.travel_list) {
-            // Handle the camera action
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_SETTINGS;
         } else if (id == R.id.settings) {
-
+            navItemIndex = 1;
+            CURRENT_TAG = TAG_SETTINGS;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        loadFragment();
         return true;
+    }
+
+
+    private void loadFragment() {
+
+        Runnable mPenndingRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Fragment fragment = getFragment(navItemIndex);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment, CURRENT_TAG)
+                        .commit();
+            }
+        };
+
+        mHandler.post(mPenndingRunnable);
+
+        drawerLayout.closeDrawers();
+
+    }
+
+
+    private Fragment getFragment(int currNavItemIndex) {
+        switch (currNavItemIndex) {
+            case 0:
+                return TravelListFrag.newInstance();
+            case 1:
+                return SettingsFrag.newInstance();
+            default:
+                throw new IllegalArgumentException("There is no fragment with index" + currNavItemIndex);
+        }
+
     }
 }
