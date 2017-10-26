@@ -1,5 +1,6 @@
 package com.believeapps.travelinfo.screens.travellist;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
@@ -8,7 +9,6 @@ import com.believeapps.travelinfo.repository.Repository;
 import com.believeapps.travelinfo.api.queryobjects.DatesAndDuration;
 import com.believeapps.travelinfo.api.queryobjects.HotelsByChildDestinationQuery;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -29,6 +29,18 @@ public class TravelListViewModel extends ViewModel {
     private CompositeDisposable compositeDisposable;
     private Repository repository;
 
+
+    @Named("destinationHotelsLiveData")
+    @Inject
+    MutableLiveData<List<DestinationHotels>> destinationHotelsList;
+
+    @Named("errorLiveData")
+    @Inject
+    MutableLiveData<Boolean> errorStatus;
+
+    @Named("loadingLiveData")
+    @Inject
+    MutableLiveData<Boolean> loadingStatus;
 
     @Inject
     public TravelListViewModel(Repository repository) {
@@ -44,6 +56,8 @@ public class TravelListViewModel extends ViewModel {
                         .toSortedList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(s -> loadingStatus.setValue(true))
+                .doAfterTerminate(() -> loadingStatus.setValue(false))
                 .subscribe(
                         object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object.toString()),
                         err -> Log.d(this.getClass().getSimpleName(), "getHotels: " + err)
@@ -54,11 +68,11 @@ public class TravelListViewModel extends ViewModel {
     private Date getDateForQuery() {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        c.set(Calendar.HOUR_OF_DAY,0);
+        c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND,0);
-        c.set(Calendar.MILLISECOND,0);
-        c.add(Calendar.MONTH, 5);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.MONTH, 3);
         return c.getTime();
     }
 

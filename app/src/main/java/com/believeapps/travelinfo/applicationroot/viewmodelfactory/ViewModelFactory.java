@@ -12,8 +12,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     private TravelListViewModel travelListViewModel;
 
     @Inject
-    public ViewModelFactory(TravelListViewModel mTravelListModule) {
-        this.travelListViewModel = mTravelListModule;
+    public ViewModelFactory(TravelListViewModel mTravelListModel) {
+        this.travelListViewModel = mTravelListModel;
     }
 
 

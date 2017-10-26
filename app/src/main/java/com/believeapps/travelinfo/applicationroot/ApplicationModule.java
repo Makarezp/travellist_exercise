@@ -25,11 +25,7 @@ public class ApplicationModule {
         return mApplication;
     }
 
-    @Provides
-    @Singleton
-    ViewModelProvider.Factory provideViewModelFactory(ViewModelFactory factory) {
-        return factory;
-    }
+
 
 
 }
