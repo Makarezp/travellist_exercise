@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -37,6 +39,11 @@ public class TravelListFrag extends Fragment {
     @BindView(R.id.loading_status)
     ProgressBar loadingStatusView;
 
+    @BindView(R.id.constraint_layout)
+    ConstraintLayout constraintLayout;
+
+    Snackbar errorSnackbar;
+
     private Unbinder butterUnbinder;
 
     public TravelListFrag() {
@@ -49,11 +56,6 @@ public class TravelListFrag extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,9 +77,17 @@ public class TravelListFrag extends Fragment {
         mTravelListViewModel.getHotels();
         mTravelListViewModel.loadingStatus.observe(this, this::showLoading);
         mTravelListViewModel.errorStatus.observe(this, this::showError);
+        errorSnackbar = Snackbar.make(constraintLayout, "Error while retrieving data", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", v -> mTravelListViewModel.getHotels());
     }
 
     private void showError(Boolean isErrorVisible) {
+        if (isErrorVisible) {
+            errorSnackbar.show();
+        } else {
+            errorSnackbar.dismiss();
+        }
+
 
     }
 

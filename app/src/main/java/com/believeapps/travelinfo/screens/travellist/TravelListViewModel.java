@@ -49,7 +49,7 @@ public class TravelListViewModel extends ViewModel {
     }
 
     public void getHotels() {
-
+        errorStatus.setValue(false);
 
         compositeDisposable.add(repository.getHotelsByChildDestination(buildQuery())
                 .flatMap(list -> Observable.fromIterable(list)
@@ -60,9 +60,10 @@ public class TravelListViewModel extends ViewModel {
                 .doAfterTerminate(() -> loadingStatus.setValue(false))
                 .subscribe(
                         object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object.toString()),
-                        err -> Log.d(this.getClass().getSimpleName(), "getHotels: " + err)
+                        err -> errorStatus.setValue(true)
                 )
         );
+
     }
 
     private Date getDateForQuery() {

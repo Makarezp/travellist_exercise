@@ -77,6 +77,35 @@ public class DestinationHotels implements Comparable<DestinationHotels> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DestinationHotels that = (DestinationHotels) o;
+
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (count != null ? !count.equals(that.count) : that.count != null) return false;
+        if (minPrice != null ? !minPrice.equals(that.minPrice) : that.minPrice != null)
+            return false;
+        if (position != null ? !position.equals(that.position) : that.position != null)
+            return false;
+        if (imageId != null ? !imageId.equals(that.imageId) : that.imageId != null) return false;
+        return imageType != null ? imageType.equals(that.imageType) : that.imageType == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (count != null ? count.hashCode() : 0);
+        result = 31 * result + (minPrice != null ? minPrice.hashCode() : 0);
+        result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
+        result = 31 * result + (imageType != null ? imageType.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DestinationHotels{" +
                 "title='" + title + '\'' +

@@ -2,7 +2,6 @@ package com.believeapps.travelinfo.screens.travellist;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModelProvider;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -12,7 +11,6 @@ import com.believeapps.travelinfo.model.DestinationHotels;
 import java.util.List;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -51,7 +49,7 @@ public class TravelListModule {
     @Named("loadingLiveData")
     @TravelListScope
     @Provides
-    MutableLiveData<Boolean> provdideMTDLoadingStates() {
+    MutableLiveData<Boolean> provideMTDLoadingStates() {
         return new MutableLiveData<>();
     }
 
