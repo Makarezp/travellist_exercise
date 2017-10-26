@@ -9,6 +9,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import android.widget.ProgressBar;
 
 import com.believeapps.travelinfo.applicationroot.BaseApplication;
 import com.believeapps.travelinfo.R;
+import com.believeapps.travelinfo.model.DestinationHotels;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,6 +46,11 @@ public class TravelListFrag extends Fragment {
 
     @BindView(R.id.constraint_layout)
     ConstraintLayout constraintLayout;
+
+    @BindView(R.id.travel_list_recycler)
+    RecyclerView recycler;
+
+    private DestinationHotelsAdapter mAdpter;
 
     Snackbar errorSnackbar;
 
@@ -73,12 +83,28 @@ public class TravelListFrag extends Fragment {
                 .getApplicationComponent()
                 .getTravelListComponent(new TravelListModule(this))
                 .inject(this);
+        initRecycler();
         mTravelListViewModel = ViewModelProviders.of(this, mFactory).get(TravelListViewModel.class);
         mTravelListViewModel.getHotels();
         mTravelListViewModel.loadingStatus.observe(this, this::showLoading);
         mTravelListViewModel.errorStatus.observe(this, this::showError);
+        mTravelListViewModel.destinationHotelsList.observe(this, this::showData);
         errorSnackbar = Snackbar.make(constraintLayout, "Error while retrieving data", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", v -> mTravelListViewModel.getHotels());
+
+    }
+
+    public void initRecycler() {
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mFragmentActivity, 2);
+        recycler.setLayoutManager(layoutManager);
+        mAdpter = new DestinationHotelsAdapter();
+        recycler.setAdapter(mAdpter);
+    }
+
+    private void showData(List<DestinationHotels> destinationHotelsList) {
+        if (mAdpter != null) {
+            mAdpter.swap(destinationHotelsList);
+        }
     }
 
     private void showError(Boolean isErrorVisible) {
@@ -87,9 +113,9 @@ public class TravelListFrag extends Fragment {
         } else {
             errorSnackbar.dismiss();
         }
-
-
     }
+
+
 
     private void showLoading(Boolean showLoading) {
         if (showLoading) {

@@ -59,7 +59,7 @@ public class TravelListViewModel extends ViewModel {
                 .doOnSubscribe(s -> loadingStatus.setValue(true))
                 .doAfterTerminate(() -> loadingStatus.setValue(false))
                 .subscribe(
-                        object -> Log.d(this.getClass().getSimpleName(), "getHotels: " + object.toString()),
+                        destinationHotelsList -> this.destinationHotelsList.setValue(destinationHotelsList),
                         err -> errorStatus.setValue(true)
                 )
         );
